@@ -11,6 +11,7 @@ URL:		http://github.com/joyent/http-parser
 # download from https://github.com/joyent/http-parser/tarball/%%{version}
 Source0:	http://pkgs.fedoraproject.org/repo/pkgs/http-parser/joyent-%{name}-v%{version}-%{github_seq}-g%{git_commit_hash}.tar.gz/340f2aab333c435cbaf49a4949645a06/joyent-http-parser-v%{version}-%{github_seq}-g%{git_commit_hash}.tar.gz
 # Source0-md5:	340f2aab333c435cbaf49a4949645a06
+BuildRequires:	libstdc++-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 # Build shared library with SONAME using gyp and remove -O flags so optflags take over
 # TODO: do this nicely upstream
