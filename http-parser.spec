@@ -1,28 +1,23 @@
-%define git_date 20121128
-%define git_commit_hash cd01361
-%define github_seq 7
 Summary:	HTTP request/response parser for C
 Summary(pl.UTF-8):	Analizator żądań/odpowiedzi HTTP dla C
 Name:		http-parser
-Version:	2.0
-Release:	0.git%{git_commit_hash}
+Version:	2.1
+Release:	1
 License:	MIT
 Group:		Libraries
-# download from https://github.com/joyent/http-parser/tarball/%%{version}
-Source0:	http://pkgs.fedoraproject.org/repo/pkgs/http-parser/joyent-%{name}-v%{version}-%{github_seq}-g%{git_commit_hash}.tar.gz/340f2aab333c435cbaf49a4949645a06/joyent-http-parser-v%{version}-%{github_seq}-g%{git_commit_hash}.tar.gz
-# Source0-md5:	340f2aab333c435cbaf49a4949645a06
+Source0:	https://github.com/joyent/http-parser/archive/v%{version}/%{name}-%{version}.tar.gz
+# Source0-md5:	93d89867996b8077e0140692c55e997c
 # Build shared library with SONAME using gyp and remove -O flags so optflags take over
 # TODO: do this nicely upstream
 Patch0:		%{name}-gyp-sharedlib.patch
 URL:		http://github.com/joyent/http-parser
 BuildRequires:	libstdc++-devel
-BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 BuildRequires:	gyp
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 # we use the upstream version from http_parser.h as the SONAME
 %define somajor 2
-%define sominor 0
+%define sominor 1
 %define somicro 0
 
 %description
@@ -56,16 +51,17 @@ Development headers for http-parser library.
 Pliki nagłówkowe biblioteki http-parser.
 
 %prep
-%setup -q -n joyent-%{name}-%{git_commit_hash}
+%setup -q
 %patch0
 
 %build
 # TODO: fix -fPIC upstream
 export CFLAGS='%{rpmcflags} -fPIC'
 gyp -f make --depth=. http_parser.gyp
-%{__make} \
-	BUILDTYPE=Release \
-	V=1
+%{__make} V=1 \
+	CC="%{__cc}" \
+	CXX="%{__cxx}" \
+	BUILDTYPE=Release
 
 %if %{with tests}
 export LD_LIBRARY_PATH='./out/Release/lib.target'
