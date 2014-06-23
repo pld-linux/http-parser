@@ -1,12 +1,12 @@
 Summary:	HTTP request/response parser for C
 Summary(pl.UTF-8):	Analizator żądań/odpowiedzi HTTP dla C
 Name:		http-parser
-Version:	2.2
+Version:	2.3
 Release:	1
 License:	MIT
 Group:		Libraries
 Source0:	https://github.com/joyent/http-parser/archive/v%{version}/%{name}-%{version}.tar.gz
-# Source0-md5:	1ea938e01706b502f872dde7f303763c
+# Source0-md5:	2c4092f5c2dc99798fe28e9c0647e869
 # Build shared library with SONAME using gyp and remove -O flags so optflags take over
 # TODO: do this nicely upstream
 Patch0:		%{name}-gyp-sharedlib.patch
