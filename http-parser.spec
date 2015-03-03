@@ -1,12 +1,12 @@
 Summary:	HTTP request/response parser for C
 Summary(pl.UTF-8):	Analizator żądań/odpowiedzi HTTP dla C
 Name:		http-parser
-Version:	2.3
+Version:	2.4.2
 Release:	1
 License:	MIT
 Group:		Libraries
 Source0:	https://github.com/joyent/http-parser/archive/v%{version}/%{name}-%{version}.tar.gz
-# Source0-md5:	2c4092f5c2dc99798fe28e9c0647e869
+# Source0-md5:	320b65ff6d79c7d3a2fa88d5ea94196a
 # Build shared library with SONAME using gyp and remove -O flags so optflags take over
 # TODO: do this nicely upstream
 Patch0:		%{name}-gyp-sharedlib.patch
@@ -17,8 +17,8 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 # we use the upstream version from http_parser.h as the SONAME
 %define somajor 2
-%define sominor 1
-%define somicro 0
+%define sominor 4
+%define somicro 2
 
 %description
 This is a parser for HTTP messages written in C. It parses both
@@ -94,7 +94,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc AUTHORS CONTRIBUTIONS LICENSE-MIT README.md
+%doc AUTHORS LICENSE-MIT README.md
 %attr(755,root,root) %{_libdir}/libhttp_parser.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/libhttp_parser.so.2
 %attr(755,root,root) %{_libdir}/libhttp_parser_strict.so.*.*.*
