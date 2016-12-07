@@ -1,16 +1,17 @@
 Summary:	HTTP request/response parser for C
 Summary(pl.UTF-8):	Analizator żądań/odpowiedzi HTTP dla C
 Name:		http-parser
-Version:	2.7.0
+Version:	2.7.1
 Release:	1
 License:	MIT
 Group:		Libraries
-Source0:	https://github.com/joyent/http-parser/archive/v%{version}/%{name}-%{version}.tar.gz
-# Source0-md5:	335f0a0748684640078474c897d87804
+#Source0Download: https://github.com/nodejs/http-parser/releases
+Source0:	https://github.com/nodejs/http-parser/archive/v%{version}/%{name}-%{version}.tar.gz
+# Source0-md5:	31c6fefb6208b16d19b3f990e71cb04a
 # Build shared library with SONAME using gyp and remove -O flags so optflags take over
 # TODO: do this nicely upstream
 Patch0:		%{name}-gyp-sharedlib.patch
-URL:		http://github.com/joyent/http-parser
+URL:		http://github.com/nodejs/http-parser
 BuildRequires:	libstdc++-devel
 BuildRequires:	gyp
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -18,7 +19,7 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 # we use the upstream version from http_parser.h as the SONAME
 %define somajor 2
 %define sominor 7
-%define somicro 0
+%define somicro 1
 
 %description
 This is a parser for HTTP messages written in C. It parses both
