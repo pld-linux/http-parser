@@ -53,7 +53,7 @@ Pliki nagłówkowe biblioteki http-parser.
 
 %prep
 %setup -q
-%patch0
+%patch -P0
 
 %build
 # TODO: fix -fPIC upstream
