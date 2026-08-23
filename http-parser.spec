@@ -6,13 +6,14 @@ Summary:	HTTP request/response parser for C
 Summary(pl.UTF-8):	Analizator żądań/odpowiedzi HTTP dla C
 Name:		http-parser
 Version:	2.9.4
-Release:	2
+Release:	3
 License:	MIT
 Group:		Libraries
 #Source0Download: https://github.com/nodejs/http-parser/releases
 # upstream archived in 2020, 2.9.4 is the final release
 Source0:	https://github.com/nodejs/http-parser/archive/v%{version}/%{name}-%{version}.tar.gz
 # Source0-md5:	1b0f2371aabacbadaa03cc532cedcf92
+Patch0:		%{name}-sizeof-assert.patch
 URL:		https://github.com/nodejs/http-parser
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -53,6 +54,7 @@ Pliki nagłówkowe biblioteki http-parser.
 
 %prep
 %setup -q
+%patch -P0 -p1
 
 %build
 export CPPFLAGS="%{rpmcppflags}"

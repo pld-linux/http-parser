@@ -1,0 +1,22 @@
+Fix the sizeof(http_parser) assertion on ABIs that tail-pad the struct.
+
+test.c asserts that sizeof(http_parser) equals the plain sum of its member
+sizes, which only holds when the struct needs no tail padding.  On x32
+pointers are 4 bytes while uint64_t is still 8-byte aligned, so the struct is
+8-byte aligned and padded out from 28 to 32 bytes, and the assertion aborts
+the test run.  Round the member sum up to the struct's alignment instead.
+
+--- http-parser-2.9.4.orig/test.c	2020-03-24 11:54:06.000000000 +0100
++++ http-parser-2.9.4/test.c	2026-08-23 15:00:21.685328651 +0200
+@@ -4221,7 +4221,10 @@
+   printf("http_parser v%u.%u.%u (0x%06lx)\n", major, minor, patch, version);
+ 
+   printf("sizeof(http_parser) = %u\n", (unsigned int)sizeof(http_parser));
+-  assert(sizeof(http_parser) == 4 + 4 + 8 + 2 + 2 + 4 + sizeof(void *));
++  /* x32 tail-pads the struct: 4-byte pointers, 8-byte aligned uint64_t. */
++  assert(sizeof(http_parser) ==
++         (4 + 4 + 8 + 2 + 2 + 4 + sizeof(void *) + __alignof__(http_parser) - 1)
++             / __alignof__(http_parser) * __alignof__(http_parser));
+ 
+   //// API
+   test_preserve_data();
