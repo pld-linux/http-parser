@@ -6,7 +6,7 @@ Summary:	HTTP request/response parser for C
 Summary(pl.UTF-8):	Analizator żądań/odpowiedzi HTTP dla C
 Name:		http-parser
 Version:	2.9.4
-Release:	3
+Release:	4
 License:	MIT
 Group:		Libraries
 #Source0Download: https://github.com/nodejs/http-parser/releases
@@ -44,7 +44,7 @@ serwera WWW - dla połączenia).
 Summary:	Development headers for http-parser library
 Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki http-parser
 Group:		Development/Libraries
-Requires:	%{name} = %{version}-%{release}
+Requires:	%{name}%{?_isa} = %{version}-%{release}
 
 %description devel
 Development headers for http-parser library.
